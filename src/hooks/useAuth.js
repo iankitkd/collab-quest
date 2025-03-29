@@ -9,6 +9,8 @@ import {
   onAuthStateChanged
 } from 'firebase/auth';
 
+import { createUserDocument } from '@/actions/user';
+
 export function useAuth() {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -22,8 +24,9 @@ export function useAuth() {
     return unsubscribe;
   }, []);
 
-  function signup(email, password) {
-    return createUserWithEmailAndPassword(auth, email, password);
+  async function signup(email, password) {
+    const user = createUserWithEmailAndPassword(auth, email, password);
+    await createUserDocument(user, { displayName });
   }
 
   function login(email, password) {
