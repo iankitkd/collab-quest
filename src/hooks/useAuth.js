@@ -25,8 +25,9 @@ export function useAuth() {
   }, []);
 
   async function signup(email, password) {
-    const user = createUserWithEmailAndPassword(auth, email, password);
-    await createUserDocument(user, { displayName });
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    console.log(userCredential.user, "user")
+    await createUserDocument(userCredential.user, { displayName });
   }
 
   function login(email, password) {

@@ -18,5 +18,9 @@ export default function ProtectedRoute({ children }) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
 
+  if(!currentUser) {
+    router.push("/login")
+  }
+
   return children;
 }

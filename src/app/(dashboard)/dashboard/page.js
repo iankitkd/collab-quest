@@ -5,9 +5,9 @@ import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 // import { getUserProjects, createProject } from '../lib/firestore';
 import ProjectCard from '@/components/ProjectCard';
-import NewProjectModal from '@/components/NewProjectModal';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { Header } from '@/components';
+import Link from 'next/link';
 
 const dummyProjects = [
     {
@@ -92,25 +92,6 @@ export default function Dashboard() {
     }
   }, [currentUser]);
 
-  const handleCreateProject = async (projectData) => {
-    try {
-      setIsLoadingProjects(true);
-    //   await createProject({
-    //     ...projectData,
-    //     owner: currentUser.uid,
-    //     members: [currentUser.uid],
-    //   });
-    //   // Refresh projects
-    //   const updatedProjects = await getUserProjects(currentUser.uid);
-    //   setProjects(updatedProjects);
-    //   setShowNewProjectModal(false);
-    } catch (error) {
-      console.error("Error creating project:", error);
-    } finally {
-      setIsLoadingProjects(false);
-    }
-  };
-
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -125,13 +106,12 @@ export default function Dashboard() {
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-xl font-semibold text-gray-900">Your Projects</h2>
-            <button
-              onClick={() => setShowNewProjectModal(true)}
+            <h2 className="text-xl font-semibold text-gray-900">My Projects</h2>
+            <Link href={"/projects/create"}
               className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
             >
               New Project
-            </button>
+            </Link>
           </div>
 
           {/* Projects Grid */}
@@ -151,24 +131,10 @@ export default function Dashboard() {
               <p className="mt-1 text-gray-500">
                 Get started by creating a new project.
               </p>
-              <div className="mt-6">
-                <button
-                  onClick={() => setShowNewProjectModal(true)}
-                  className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                  New Project
-                </button>
-              </div>
             </div>
           )}
         </main>
 
-        {/* New Project Modal */}
-        <NewProjectModal
-          isOpen={showNewProjectModal}
-          onClose={() => setShowNewProjectModal(false)}
-          onCreate={handleCreateProject}
-        />
       </div>
     </ProtectedRoute>
   );
