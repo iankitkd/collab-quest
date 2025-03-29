@@ -1,5 +1,6 @@
 "use client"
 
+import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { useForm } from "react-hook-form";
@@ -8,6 +9,7 @@ import { IoMdEye, IoMdEyeOff, IoMdLock, IoMdMail  } from "react-icons/io";
 
 const Login = () => {
   const router = useRouter();
+  const { login, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
@@ -21,7 +23,8 @@ const Login = () => {
     try {
         setLoading(true);
         const {email, password} = formData;
-        console.log(formData)
+        const response = await login(email, password);
+        router.push("/dashboard");
     } catch (error) {
         console.log(error);
     } finally {

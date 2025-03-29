@@ -1,6 +1,6 @@
 "use client"
 
-import { signup } from '@/actions/auth';
+import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react'
 import { useForm } from "react-hook-form";
@@ -10,6 +10,7 @@ import { IoMdLock, IoMdMail, IoMdEye, IoMdEyeOff } from "react-icons/io";
 
 const Signup = () => {
   const router = useRouter();
+  const { signup, login, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
@@ -38,18 +39,19 @@ const Signup = () => {
     return true;
   };
 
-  const handleSignUp = async () => {
+  const handleSignup = async () => {
     try {
-        setLoading(true);
-        // const response = await signup(email, password, name);
-        // console.log(response, "res");
-        console.log(email, password, name, "res");
+      setLoading(true);
+      const userCredential = await signup(email, password);
+      // add user data to Firestore
+      router.push("/dashboard");
     } catch (error) {
-        console.log(error);   
+      console.log(error);
+      // toast
     } finally {
-        setLoading(false);
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className='bg-background-primary w-full min-h-screen flex justify-center'>
@@ -59,7 +61,7 @@ const Signup = () => {
           <p className='text-center p-1'>Create Your Account</p>
     
           {/* form */}
-          <form onSubmit={handleSubmit(handleSignUp)}>
+          <form onSubmit={handleSubmit(handleSignup)}>
             
             <label htmlFor='name' className='relative flex flex-col'>
               <FaUser className='absolute top-[30px] left-1 text-xl'/>

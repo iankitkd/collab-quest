@@ -39,7 +39,7 @@
 } */
 
 body {
-  background: var(--background);
+  background: var(--color-background-primary);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

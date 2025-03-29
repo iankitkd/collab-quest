@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Collab Quest",
-  description: "Project Collaboration Marketplace",
+  title: "Collab Quest | Student Project Collaboration Platform",
+  description: "Find, join, or create projects with students who share your interests and skills",
 };
 
 export default function RootLayout({ children }) {
