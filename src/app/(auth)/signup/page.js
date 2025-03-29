@@ -53,9 +53,11 @@ const Signup = () => {
     }
   };
 
-  if(currentUser) {
-    router.push("/dashboard");
-  }
+  useEffect(() => {
+      if (currentUser) {
+        router.push("/dashboard");
+      }
+    }, [currentUser, router]);
 
   return (
     <div className='bg-background-primary w-full min-h-screen flex justify-center'>

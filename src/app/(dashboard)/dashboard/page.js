@@ -71,7 +71,6 @@ export default function Dashboard() {
   const { currentUser, loading } = useAuth();
   const router = useRouter();
   const [projects, setProjects] = useState([]);
-  const [showNewProjectModal, setShowNewProjectModal] = useState(false);
   const [isLoadingProjects, setIsLoadingProjects] = useState(true);
 
   useEffect(() => {

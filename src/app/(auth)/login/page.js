@@ -2,7 +2,7 @@
 
 import { useAuth } from '@/hooks/useAuth';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from "react-hook-form";
 
 import { IoMdEye, IoMdEyeOff, IoMdLock, IoMdMail  } from "react-icons/io";
@@ -32,9 +32,11 @@ const Login = () => {
     }
   }
 
-  if(currentUser) {
-    router.push("/dashboard");
-  }
+  useEffect(() => {
+    if (currentUser) {
+      router.push("/dashboard");
+    }
+  }, [currentUser, router]);
 
   return (
     <div className='bg-background-primary w-full min-h-screen flex justify-center'>
