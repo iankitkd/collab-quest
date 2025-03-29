@@ -53,6 +53,10 @@ const Signup = () => {
     }
   };
 
+  if(currentUser) {
+    router.push("/dashboard");
+  }
+
   return (
     <div className='bg-background-primary w-full min-h-screen flex justify-center'>
     
